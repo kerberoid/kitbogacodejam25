@@ -19,20 +19,66 @@
       width: 390px;
       height: 300px;
     }
-
     /* Your style here... */
+
+    #instruction {
+      background: white;
+      width: 390px;
+      height: 20px;
+      margin: none;
+      padding: none;
+      text-align: center;
+    }
+    #spinningImage{
+      height: 150px;
+      width: 150px;
+    }
+    #spinningDiv{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 50px;
+    }
+    #spinButton{
+      position: fixed;
+      bottom: 10px;
+    }
+    #spinButtonDiv{
+      bottom: 10px;
+      margin-left: 40%;
+    }
+    
+    /* Define the spinning animation */
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+                
+            }
+        }
+
+        /* Apply the animation when the 'spin-active' class is present */
+        .spin-active {
+            animation: spin 2s linear infinite; /* 2 seconds, linear speed, infinite loop */
+        }
+
   </style>
 </head>
 
 <body>
   <div id="captcha-container">
     <!-- Add your CAPTCHA here: -->
-    Hello world!
-
-    <!-- We've added a sample button. Feel free to remove it: -->
-    <button id="solve">
-      Solve!
-    </button>
+    <div id="instruction">
+        <b class="text">Orient the Image correctly</b>
+    </div>
+    <div id="spinningDiv">
+        <img id="spinningImage" src="Test.png">
+    </div>
+    <div id="spinButtonDiv">
+        <button id="spinButton">Stop image</button>
+    </div>
   </div>
 
   <script type="text/javascript">
@@ -43,8 +89,75 @@
       }
 
       // Your CAPTCHA code goes here, we've added a simple example below:
+      /* this is the example with the captha success function
       document.getElementById('solve')
            .addEventListener('click', () => captchaSuccess());
+      */
+
+        // Get references to the image and the button
+        const spinningImage = document.getElementById('spinningImage');
+        const spinButton = document.getElementById('spinButton');
+        var correctrotation = "leer";
+        //Start spinning immediatly
+        spinningImage.classList.add('spin-active');
+
+        // Add a click event listener to the button
+        spinButton.addEventListener('click', () => {
+            // Check if the image is currently spinning
+            if (spinningImage.classList.contains('spin-active')) {
+                // If it's spinning, stop it and capture its current orientation
+
+                // Get the computed style of the image to find its current transform
+                const computedStyle = window.getComputedStyle(spinningImage);
+                const transformValue = computedStyle.getPropertyValue('transform');
+                const tr = transformValue;
+
+                // Remove the 'spin-active' class to stop the CSS animation
+                spinningImage.classList.remove('spin-active');
+
+                // Apply the captured transform value as an inline style
+                // This makes the image stop at its current rotated position
+                spinningImage.style.transform = transformValue;
+
+                //get if tranform value is above or below 180 degrees
+                //calculate degrees from rotation matrix 
+                var values = tr.split('(')[1],
+                    values = values.split(')')[0],
+                    values = values.split(',');
+
+                var a = values[0]; // cos(x)
+                var b = values[1]; // sin(x)
+                var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+                //angle gets degree value from 0 to 180 on the right side and -180 to 0 on the left
+                                //check if the now correct answer get chosen
+                if(((angle <= 45 && angle >= 0) || (angle <= 0 && angle >= -45)) && correctrotation == "top"){
+                  captchaSuccess();
+                }
+                if(((angle >= 135 && angle <= 180) || (angle <= -180 && angle >= -135)) && correctrotation == "bottom"){
+                  captchaSuccess();
+                }
+                //if is oriented one side save value
+                if(angle <= 90 && angle >= -90 && correctrotation == "leer"){
+                  correctrotation = "bottom";
+                }
+                else if(correctrotation == "leer"){
+                  correctrotation = "top";
+                }
+                //test output
+                //console.log(angle);
+                //console.log(correctrotation);
+
+                // Update button text
+                spinButton.textContent = 'Try again';
+            } else {
+                // Remove any previously applied inline transform style
+                spinningImage.style.transform = '';
+                // Add the 'spin-active' class to start the CSS animation
+                spinningImage.classList.add('spin-active');
+                // Update button text
+                spinButton.textContent = 'Confirm';
+            }
+        });
 
     })(window, document);
   </script>
