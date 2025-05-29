@@ -4,7 +4,7 @@ Make the First orientation always the wrong choice.
 ^done
 increased difficulty through math error is also achieved. It's not a bug, it's a feature now.
 todo: 
-- [ ] more Images
+- [ ] more Images (some Crows)
 - [ ] select Image randomly
 - [ ] icreasing difficulty through changing spin speed
 - [ ] multiple stages to complete the captcha
