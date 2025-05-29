@@ -1,6 +1,13 @@
 # My Ideas
 make a "spin the picture to correct orientation" with two faced Images, like the Duck and Hare one, old lady and witch. 
 Make the First orientation always the wrong choice.
+^done
+increased difficulty through math error is also achieved. It's not a bug, it's a feature now.
+todo: 
+- [ ] more Images (some Crows)
+- [ ] select Image randomly
+- [ ] icreasing difficulty through changing spin speed
+- [ ] multiple stages to complete the captcha
 
 
 # OG codejam rules
