@@ -1,3 +1,9 @@
+# My Ideas
+make a "spin the picture to correct orientation" with two faced Images, like the Duck and Hare one, old lady and witch. 
+Make the First orientation always the wrong choice.
+
+
+# OG codejam rules
 # Kitboga Code Jam
 "I'm not a robot!"
 
