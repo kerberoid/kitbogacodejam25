@@ -61,7 +61,7 @@
 
         /* Apply the animation when the 'spin-active' class is present */
         .spin-active {
-            animation: spin 2s linear infinite; /* 2 seconds, linear speed, infinite loop */
+            animation: spin 1s linear(0, 0.25 33%, 0.5 50%, 0.75 83%, 1) infinite; /* 1 seconds per spin, uneven speed faster on important bits, infinite loop */
         }
 
   </style>
@@ -107,7 +107,7 @@
             if (spinningImage.classList.contains('spin-active')) {
                 // If it's spinning, stop it and capture its current orientation
 
-                // Get the computed style of the image to find its current transform
+                // Get the computed style of the image to find its current transform (rotation)
                 const computedStyle = window.getComputedStyle(spinningImage);
                 const transformValue = computedStyle.getPropertyValue('transform');
                 const tr = transformValue;
@@ -129,14 +129,14 @@
                 var b = values[1]; // sin(x)
                 var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
                 //angle gets degree value from 0 to 180 on the right side and -180 to 0 on the left
-                                //check if the now correct answer get chosen
-                if(((angle <= 45 && angle >= 0) || (angle <= 0 && angle >= -45)) && correctrotation == "top"){
+                //check if the now correct answer get chosen. Narrower angles increase difficulty
+                if((angle <= 10 && angle >= 0 && correctrotation == "top") || (angle <= 0 && angle >= -10 && correctrotation == "top")){
                   captchaSuccess();
                 }
-                if(((angle >= 135 && angle <= 180) || (angle <= -180 && angle >= -135)) && correctrotation == "bottom"){
+                if((angle >= 170 && angle <= 180 && correctrotation == "bottom") || (angle <= -180 && angle >= -170 && correctrotation == "bottom")){
                   captchaSuccess();
                 }
-                //if is oriented one side save value
+                //if no side was picked until now, the chosen position is saved and wrong
                 if(angle <= 90 && angle >= -90 && correctrotation == "leer"){
                   correctrotation = "bottom";
                 }
@@ -155,7 +155,7 @@
                 // Add the 'spin-active' class to start the CSS animation
                 spinningImage.classList.add('spin-active');
                 // Update button text
-                spinButton.textContent = 'Confirm';
+                spinButton.textContent = 'Stop image';
             }
         });
 
