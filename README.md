@@ -6,8 +6,9 @@ increased difficulty through math error is also achieved. It's not a bug, it's a
 todo: 
 - [ ] more Images (some Crows)
 - [ ] select Image randomly
-- [ ] icreasing difficulty through changing spin speed
+- [X] icreasing difficulty through changing spin speed
 - [ ] multiple stages to complete the captcha
+- [ ] make more difficult through change in speed and direction in the stages
 
 
 # OG codejam rules
