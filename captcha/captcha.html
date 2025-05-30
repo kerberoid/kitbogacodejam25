@@ -60,6 +60,7 @@
         }
 
         /* Apply the animation when the 'spin-active' class is present */
+        /* You can set some difficulty by changing the spin acceleration */
         .spin-active {
             animation: spin 1s linear(0, 0.25 33%, 0.5 50%, 0.75 83%, 1) infinite; /* 1 seconds per spin, uneven speed faster on important bits, infinite loop */
         }
@@ -89,11 +90,6 @@
       }
 
       // Your CAPTCHA code goes here, we've added a simple example below:
-      /* this is the example with the captha success function
-      document.getElementById('solve')
-           .addEventListener('click', () => captchaSuccess());
-      */
-
         // Get references to the image and the button
         const spinningImage = document.getElementById('spinningImage');
         const spinButton = document.getElementById('spinButton');
@@ -106,8 +102,6 @@
             // Check if the image is currently spinning
             if (spinningImage.classList.contains('spin-active')) {
                 // If it's spinning, stop it and capture its current orientation
-
-                // Get the computed style of the image to find its current transform (rotation)
                 const computedStyle = window.getComputedStyle(spinningImage);
                 const transformValue = computedStyle.getPropertyValue('transform');
                 const tr = transformValue;
@@ -115,42 +109,38 @@
                 // Remove the 'spin-active' class to stop the CSS animation
                 spinningImage.classList.remove('spin-active');
 
-                // Apply the captured transform value as an inline style
+                // Apply the captured transform value to the Image
                 // This makes the image stop at its current rotated position
                 spinningImage.style.transform = transformValue;
 
-                //get if tranform value is above or below 180 degrees
+                //get if tranform value is between -90 to 90 Degrees
                 //calculate degrees from rotation matrix 
                 var values = tr.split('(')[1],
                     values = values.split(')')[0],
                     values = values.split(',');
-
                 var a = values[0]; // cos(x)
                 var b = values[1]; // sin(x)
                 var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
                 //angle gets degree value from 0 to 180 on the right side and -180 to 0 on the left
-                //check if the now correct answer get chosen. Narrower angles increase difficulty
+                //check if the now correct answer get chosen. Skips if this is the first click. Narrower angles increase difficulty.
                 if((angle <= 10 && angle >= 0 && correctrotation == "top") || (angle <= 0 && angle >= -10 && correctrotation == "top")){
                   captchaSuccess();
                 }
                 if((angle >= 170 && angle <= 180 && correctrotation == "bottom") || (angle <= -180 && angle >= -170 && correctrotation == "bottom")){
                   captchaSuccess();
                 }
-                //if no side was picked until now, the chosen position is saved and wrong
+                //if no side was picked until now, the chosen position will be saved and is the wrong Answer. Skipped if a side was already picked
                 if(angle <= 90 && angle >= -90 && correctrotation == "leer"){
                   correctrotation = "bottom";
                 }
                 else if(correctrotation == "leer"){
                   correctrotation = "top";
                 }
-                //test output
-                //console.log(angle);
-                //console.log(correctrotation);
 
                 // Update button text
                 spinButton.textContent = 'Try again';
             } else {
-                // Remove any previously applied inline transform style
+                // Remove any previously applied inline transform style (ie rotation)
                 spinningImage.style.transform = '';
                 // Add the 'spin-active' class to start the CSS animation
                 spinningImage.classList.add('spin-active');

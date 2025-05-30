@@ -1,12 +1,14 @@
 # My Ideas
-make a "spin the picture to correct orientation" with two faced Images, like the Duck and Hare one, old lady and witch. 
-Make the First orientation always the wrong choice.
-^done
-increased difficulty through math error is also achieved. It's not a bug, it's a feature now.
+make a "spin the picture to correct orientation" ambiguos Images, like the old lady and witch, pig snout and owl face. 
+Makes the First orientation always the wrong choice.
+speeds up at both possible upright orientations.
+Art is done by me.
+
 todo: 
 - [ ] more Images (some Crows)
-- [ ] select Image randomly
+- [ ] select Image per stage
 - [X] icreasing difficulty through changing spin speed
+- [ ] Add global Variables to make it easier to change difficulty
 - [ ] multiple stages to complete the captcha
 - [ ] make more difficult through change in speed and direction in the stages
 
