@@ -2,15 +2,19 @@
 make a "spin the picture to correct orientation" ambiguos Images. 
 Makes the First orientation always the wrong choice.
 speeds up at both possible upright orientations.
-Art is done by me.
+Art is and will be done by me.
+
+reachable under
+https://kerberoid.github.io/kitbogacodejam25/
 
 todo: 
 - [/] more Images (some Crows and beans)
 - [x] select Image per stage
 - [X] icreasing difficulty through changing spin speed
-- [-] Add global Variables to make it easier to change difficulty
+- [ ] Add global Variables to make it easier to change difficulty
 - [x] multiple stages to complete the captcha
-- [-] make more difficult through change in speed and direction in the stages
+- [ ] make more difficult through change in speed and direction in the stages
+- [ ] solve whythe correct orientation is not wrong on the first choice past lvl1
 - [ ] 'insult' the captcha solver when wrong choice
 
 
