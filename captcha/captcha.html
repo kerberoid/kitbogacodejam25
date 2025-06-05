@@ -72,7 +72,7 @@
   <div id="captcha-container">
     <!-- Add your CAPTCHA here: -->
     <div id="instruction">
-        <b class="text">Orient the Image correctly</b>
+        <b id="instructiontext" class="text">Orient the Image correctly</b>
     </div>
     <div id="spinningDiv">
         <img id="spinningImage" src="Test.png">
@@ -94,6 +94,7 @@
         const spinningImage = document.getElementById('spinningImage');
         const spinButton = document.getElementById('spinButton');
         var correctrotation = "leer";
+        var Levelcounter = 0;
         //Start spinning immediatly
         spinningImage.classList.add('spin-active');
 
@@ -123,11 +124,31 @@
                 var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
                 //angle gets degree value from 0 to 180 on the right side and -180 to 0 on the left
                 //check if the now correct answer get chosen. Skips if this is the first click. Narrower angles increase difficulty.
-                if((angle <= 10 && angle >= 0 && correctrotation == "top") || (angle <= 0 && angle >= -10 && correctrotation == "top")){
-                  captchaSuccess();
+                if((angle <= 20 && angle >= 0 && correctrotation == "top") || (angle <= 0 && angle >= -20 && correctrotation == "top")){
+                  Levelcounter += 1;
+                  // when correct, reset answer, iterate to next image, at the moment max 3 levels, can be changed and more Images added. keep naming scheme.
+                  if(Levelcounter <= 2){
+                    correctrotation = "leer";
+                    document.getElementById("spinningImage").src="Test"+Levelcounter+".png";
+                    // add new text to Instruction after correct answer
+                    document.getElementById("instructiontext").textContent="Orient the Image correctly "+Levelcounter+"/3"
+                  }
+                  else{
+                    captchaSuccess();
+                  }
                 }
-                if((angle >= 170 && angle <= 180 && correctrotation == "bottom") || (angle <= -180 && angle >= -170 && correctrotation == "bottom")){
-                  captchaSuccess();
+                if((angle >= 160 && angle <= 180 && correctrotation == "bottom") || (angle <= -180 && angle >= -160 && correctrotation == "bottom")){
+                  Levelcounter += 1;
+                  // when correct, reset answer, iterate to next image, at the moment max 3 levels, can be changed and more Images added. keep naming scheme.
+                  if(Levelcounter <= 2){
+                    correctrotation = "leer";
+                    document.getElementById("spinningImage").src="Test"+Levelcounter+".png";
+                    // add new text to Instruction after correct answer
+                    document.getElementById("instructiontext").textContent="Orient the Image correctly "+Levelcounter+"/3"
+                  }
+                  else{
+                    captchaSuccess();
+                  }
                 }
                 //if no side was picked until now, the chosen position will be saved and is the wrong Answer. Skipped if a side was already picked
                 if(angle <= 90 && angle >= -90 && correctrotation == "leer"){
