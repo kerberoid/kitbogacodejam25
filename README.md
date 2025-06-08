@@ -8,7 +8,7 @@ reachable under
 https://kerberoid.github.io/kitbogacodejam25/
 
 todo: 
-- [/] more Images (some Crows and beans or PC parts)
+- [x] more Images (some Crows and beans or PC parts)
 - [x] select Image per stage
 - [X] icreasing difficulty through changing linear spin speed
 - [x] Add global Variables to make it easier to change difficulty
