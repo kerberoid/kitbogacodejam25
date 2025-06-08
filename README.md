@@ -11,11 +11,11 @@ todo:
 - [/] more Images (some Crows and beans or PC parts)
 - [x] select Image per stage
 - [X] icreasing difficulty through changing linear spin speed
-- [ ] Add global Variables to make it easier to change difficulty
+- [x] Add global Variables to make it easier to change difficulty
 - [x] multiple stages to complete the captcha
 - [ ] make more difficult through change in speed and direction in the stages
-- [ ] solve whythe correct orientation is not wrong on the first choice past lvl1
-- [ ] 'insult' the captcha solver when wrong choice
+- [x] solve whythe correct orientation is not wrong on the first choice past lvl1
+- [x] 'insult' the captcha solver when wrong choice
 
 
 # OG codejam rules
