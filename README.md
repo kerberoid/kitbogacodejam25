@@ -13,7 +13,7 @@ todo:
 - [X] icreasing difficulty through changing linear spin speed
 - [x] Add global Variables to make it easier to change difficulty
 - [x] multiple stages to complete the captcha
-- [ ] make more difficult through change in speed and direction in the stages
+- [x] make more difficult through change in speed and direction in the stages
 - [x] solve whythe correct orientation is not wrong on the first choice past lvl1
 - [x] 'insult' the captcha solver when wrong choice
 
