@@ -163,6 +163,8 @@
                     document.getElementById("instructiontext").textContent="Orient the Image correctly "+Levelcounter+"/3"
                     //set answer state to correct
                     wascorrect = true;
+                    // Update button text
+                    spinButton.textContent = 'Start';
                   }
                   else{
                     //set answer state to correct
@@ -171,7 +173,10 @@
                   }
                 }
                 else if(wascorrect == false){
-                  document.getElementById("mock").textContent="Your answer may be not straight enough or wrong";
+                  //update mocking text
+                  //document.getElementById("mock").textContent="Your answer may be not straight enough or wrong";
+                  // Update button text
+                  spinButton.textContent = 'Try again';
                 }
                 if((angle >= targethigh && correctrotation == "bottom") || (angle <= -targethigh && correctrotation == "bottom")){
                   Levelcounter += 1;
@@ -183,6 +188,8 @@
                     document.getElementById("instructiontext").textContent="Orient the Image correctly "+Levelcounter+"/3"
                     //set answer state to correct
                     wascorrect = true;
+                    // Update button text
+                    spinButton.textContent = 'Start';
                   }
                   else{
                     //set answer state to correct
@@ -191,11 +198,12 @@
                   }
                 }
                 else if(wascorrect == false){
+                  //update mocking text
                   document.getElementById("mock").textContent="Your answer may be not straight enough or wrong";
+                  // Update button text
+                  spinButton.textContent = 'Try again';
                 }
-                //here goes other Failure Code
-                // Update button text
-                spinButton.textContent = 'Try again';
+                
             } else {
                 // Remove any previously applied inline transform style (ie rotation)
                 spinningImage.style.transform = '';
