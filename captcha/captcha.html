@@ -163,8 +163,10 @@
                     document.getElementById("instructiontext").textContent="Orient the Image correctly "+Levelcounter+"/3"
                     //set answer state to correct
                     wascorrect = true;
+                    // start next animation imediatly instead of keeping it stopped
+                    spinningImage.classList.add('spin-active');
                     // Update button text
-                    spinButton.textContent = 'Start';
+                    spinButton.textContent = 'Stop image';
                   }
                   else{
                     //set answer state to correct
@@ -173,8 +175,6 @@
                   }
                 }
                 else if(wascorrect == false){
-                  //update mocking text
-                  //document.getElementById("mock").textContent="Your answer may be not straight enough or wrong";
                   // Update button text
                   spinButton.textContent = 'Try again';
                 }
@@ -188,8 +188,10 @@
                     document.getElementById("instructiontext").textContent="Orient the Image correctly "+Levelcounter+"/3"
                     //set answer state to correct
                     wascorrect = true;
+                    // start next animation imediatly instead of keeping it stopped
+                    spinningImage.classList.add('spin-active');
                     // Update button text
-                    spinButton.textContent = 'Start';
+                    spinButton.textContent = 'Stop image';
                   }
                   else{
                     //set answer state to correct
