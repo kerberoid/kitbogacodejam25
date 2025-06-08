@@ -107,7 +107,7 @@
         var targetdegree = 0;
         var targetlow = 0;
         var targethigh = 0;
-        var mockdegree = 0;
+        var wascorrect = false;
         //Start spinning immediatly
         spinningImage.classList.add('spin-active');
 
@@ -115,6 +115,8 @@
         spinButton.addEventListener('click', () => {
             //clear mocking text
             document.getElementById("mock").textContent="";
+            //clear last answer state
+            wascorrect = false;
             // Update Targetdegree, as they can change
             targetdegree = getComputedStyle(root).getPropertyValue('--targetdegree');
             // Update target values, as they can change
@@ -133,9 +135,6 @@
                 // Apply the captured transform value to the Image
                 // This makes the image stop at its current rotated position
                 spinningImage.style.transform = transformValue;
-
-                
-
                 //get if tranform value is between -90 to 90 Degrees
                 //calculate degrees from rotation matrix 
                 var values = tr.split('(')[1],
@@ -153,7 +152,7 @@
                 else if(correctrotation == "leer"){
                   correctrotation = "top";
                 }
-                //check if the now correct answer get chosen. either top or bottom. Skips if the correct orientation was not set.
+                //check if the now correct answer get chosen. either top or bottom. Skips if the correct orientation was not set. else mock
                 if((angle <= targetlow && angle >= -targetlow && correctrotation == "top")){
                   Levelcounter += 1;
                   // when correct, reset answer, iterate to next image, at the moment max 3 levels, can be changed and more Images added. keep naming scheme.
@@ -162,10 +161,17 @@
                     document.getElementById("spinningImage").src="Test"+Levelcounter+".png";
                     // add new text to Instruction after correct answer
                     document.getElementById("instructiontext").textContent="Orient the Image correctly "+Levelcounter+"/3"
+                    //set answer state to correct
+                    wascorrect = true;
                   }
                   else{
+                    //set answer state to correct
+                    wascorrect = true;
                     captchaSuccess();
                   }
+                }
+                else if(wascorrect == false){
+                  document.getElementById("mock").textContent="Your answer may be not straight enough or wrong";
                 }
                 if((angle >= targethigh && correctrotation == "bottom") || (angle <= -targethigh && correctrotation == "bottom")){
                   Levelcounter += 1;
@@ -175,15 +181,19 @@
                     document.getElementById("spinningImage").src="Test"+Levelcounter+".png";
                     // add new text to Instruction after correct answer
                     document.getElementById("instructiontext").textContent="Orient the Image correctly "+Levelcounter+"/3"
+                    //set answer state to correct
+                    wascorrect = true;
                   }
                   else{
+                    //set answer state to correct
+                    wascorrect = true;
                     captchaSuccess();
                   }
                 }
-                //here goes the Failure Code
-                if(( angle <= targethigh && correctrotation == "bottom") || (angle >= -targethigh && correctrotation == "bottom") || (angle <= targetlow && angle >= -targetlow && correctrotation == "top")){
+                else if(wascorrect == false){
                   document.getElementById("mock").textContent="Your answer may be not straight enough or wrong";
                 }
+                //here goes other Failure Code
                 // Update button text
                 spinButton.textContent = 'Try again';
             } else {
