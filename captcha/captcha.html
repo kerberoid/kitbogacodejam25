@@ -79,6 +79,8 @@
     <!-- Add your CAPTCHA here: -->
     <div id="instruction">
         <b id="instructiontext" class="text">Orient the Image correctly</b>
+    </br>
+        <b id="mock" class="text"></b>
     </div>
     <div id="spinningDiv">
         <img id="spinningImage" src="Test.png">
@@ -102,20 +104,24 @@
         const spinButton = document.getElementById('spinButton');
         var correctrotation = "leer";
         var Levelcounter = 0;
-        var animationspeed = 3;
         var targetdegree = 0;
         var targetlow = 0;
         var targethigh = 0;
+        var mockdegree = 0;
         //Start spinning immediatly
         spinningImage.classList.add('spin-active');
 
         // Add a click event listener to the button
         spinButton.addEventListener('click', () => {
+            //clear mocking text
+            document.getElementById("mock").textContent="";
             // Update Targetdegree
             targetdegree = getComputedStyle(root).getPropertyValue('--targetdegree');
             // Update target values
             targethigh = 180 - targetdegree;
             targetlow = targetdegree;
+            //update mocking Target
+            mockdegree = targetdegree + 20;
             // Check if the image is currently spinning, if yes do calculations
             if (spinningImage.classList.contains('spin-active')) {
                 // If it's spinning, stop it and capture its current orientation
@@ -174,7 +180,9 @@
                   }
                 }
                 //here goes the Failure Code
-
+                if(( angle <= targethigh && correctrotation == "bottom") || (angle >= -targethigh && correctrotation == "bottom") || (angle <= targetlow && angle >= -targetlow && correctrotation == "top")){
+                  document.getElementById("mock").textContent="Your answer may be not straight enough or wrong";
+                }
                 // Update button text
                 spinButton.textContent = 'Try again';
             } else {
