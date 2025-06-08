@@ -47,6 +47,11 @@
       bottom: 10px;
       margin-left: 40%;
     }
+    /*Define Variables for difficulty*/
+    :root {
+      --animationspeed: 1s;
+      --targetdegree: 10;
+    }
     
     /* Define the spinning animation */
         @keyframes spin {
@@ -63,7 +68,7 @@
         /* You can set some difficulty by changing the spin acceleration */
         .spin-active {
             /* linear( STARTPOINT, NEXTSTEP Percent-in-animation, LASTSTEP )*/
-            animation: spin 1s linear (0, 0.25 33%, 0.5 50%, 0.75 83%, 1) infinite; /* 1 seconds per spin, uneven speed faster on important bits, infinite loop */
+            animation: spin var(--animationspeed) linear(0, 0.25 33%, 0.5 50%, 0.75 83%, 1) infinite; /* x seconds per spin, uneven speed faster on important bits, infinite loop */
         }
 
   </style>
@@ -92,25 +97,33 @@
 
       // Your CAPTCHA code goes here, we've added a simple example below:
         // Get references to the image and the button
+        const root = document.documentElement;
         const spinningImage = document.getElementById('spinningImage');
         const spinButton = document.getElementById('spinButton');
         var correctrotation = "leer";
         var Levelcounter = 0;
+        var animationspeed = 3;
+        var targetdegree = 0;
+        var targetlow = 0;
+        var targethigh = 0;
         //Start spinning immediatly
         spinningImage.classList.add('spin-active');
 
         // Add a click event listener to the button
         spinButton.addEventListener('click', () => {
-            // Check if the image is currently spinning
+            // Update Targetdegree
+            targetdegree = getComputedStyle(root).getPropertyValue('--targetdegree');
+            // Update target values
+            targethigh = 180 - targetdegree;
+            targetlow = targetdegree;
+            // Check if the image is currently spinning, if yes do calculations
             if (spinningImage.classList.contains('spin-active')) {
                 // If it's spinning, stop it and capture its current orientation
                 const computedStyle = window.getComputedStyle(spinningImage);
                 const transformValue = computedStyle.getPropertyValue('transform');
                 const tr = transformValue;
-
                 // Remove the 'spin-active' class to stop the CSS animation
                 spinningImage.classList.remove('spin-active');
-
                 // Apply the captured transform value to the Image
                 // This makes the image stop at its current rotated position
                 spinningImage.style.transform = transformValue;
@@ -132,9 +145,8 @@
                 else if(correctrotation == "leer"){
                   correctrotation = "top";
                 }
-
-                //check if the now correct answer get chosen. Skips if this is the first click. Narrower angles increase difficulty.
-                if((angle <= 20 && angle >= -20 && correctrotation == "top")){
+                //check if the now correct answer get chosen. Skips if this is the first click.
+                if((angle <= targetlow && angle >= -targetlow && correctrotation == "top")){
                   Levelcounter += 1;
                   // when correct, reset answer, iterate to next image, at the moment max 3 levels, can be changed and more Images added. keep naming scheme.
                   if(Levelcounter <= 2){
@@ -147,7 +159,8 @@
                     captchaSuccess();
                   }
                 }
-                if((angle >= 160 && correctrotation == "bottom") || (angle <= -160 && correctrotation == "bottom")){
+                //check if the now correct answer get chosen. Skips if this is the first click.
+                if((angle >= targethigh && correctrotation == "bottom") || (angle <= -targethigh && correctrotation == "bottom")){
                   Levelcounter += 1;
                   // when correct, reset answer, iterate to next image, at the moment max 3 levels, can be changed and more Images added. keep naming scheme.
                   if(Levelcounter <= 2){
@@ -160,7 +173,7 @@
                     captchaSuccess();
                   }
                 }
-                
+                //here goes the Failure Code
 
                 // Update button text
                 spinButton.textContent = 'Try again';
