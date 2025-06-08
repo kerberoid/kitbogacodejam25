@@ -49,8 +49,8 @@
     }
     /*Define Variables for difficulty*/
     :root {
-      --animationspeed: 1s;
-      --targetdegree: 10;
+      --animationspeed: 3s;
+      --targetdegree: 20;
     }
     
     /* Define the spinning animation */
@@ -96,7 +96,7 @@
       function captchaSuccess() {
         window.top.postMessage("success", '*');
       }
-
+      
       // Your CAPTCHA code goes here, we've added a simple example below:
         // Get references to the image and the button
         const root = document.documentElement;
@@ -115,9 +115,9 @@
         spinButton.addEventListener('click', () => {
             //clear mocking text
             document.getElementById("mock").textContent="";
-            // Update Targetdegree
+            // Update Targetdegree, as they can change
             targetdegree = getComputedStyle(root).getPropertyValue('--targetdegree');
-            // Update target values
+            // Update target values, as they can change
             targethigh = 180 - targetdegree;
             targetlow = targetdegree;
             //update mocking Target
@@ -133,6 +133,8 @@
                 // Apply the captured transform value to the Image
                 // This makes the image stop at its current rotated position
                 spinningImage.style.transform = transformValue;
+
+                
 
                 //get if tranform value is between -90 to 90 Degrees
                 //calculate degrees from rotation matrix 
@@ -151,7 +153,7 @@
                 else if(correctrotation == "leer"){
                   correctrotation = "top";
                 }
-                //check if the now correct answer get chosen. Skips if this is the first click.
+                //check if the now correct answer get chosen. either top or bottom. Skips if the correct orientation was not set.
                 if((angle <= targetlow && angle >= -targetlow && correctrotation == "top")){
                   Levelcounter += 1;
                   // when correct, reset answer, iterate to next image, at the moment max 3 levels, can be changed and more Images added. keep naming scheme.
@@ -165,7 +167,6 @@
                     captchaSuccess();
                   }
                 }
-                //check if the now correct answer get chosen. Skips if this is the first click.
                 if((angle >= targethigh && correctrotation == "bottom") || (angle <= -targethigh && correctrotation == "bottom")){
                   Levelcounter += 1;
                   // when correct, reset answer, iterate to next image, at the moment max 3 levels, can be changed and more Images added. keep naming scheme.
