@@ -42,6 +42,9 @@
     #spinButton{
       position: fixed;
       bottom: 10px;
+      border-radius: 50%;
+      border:5px solid #cfdcec;
+      overflow:hidden;
     }
     #spinButtonDiv{
       bottom: 10px;
@@ -84,7 +87,7 @@
         <b id="mock" class="text"></b>
     </div>
     <div id="spinningDiv">
-        <img id="spinningImage" src="Test.png">
+        <img id="spinningImage" src="Captcha.png">
     </div>
     <div id="spinButtonDiv">
         <button id="spinButton">Stop image</button>
@@ -163,7 +166,7 @@
                   // when correct, reset answer, iterate to next image, at the moment max 3 levels, can be changed and more Images added. keep naming scheme.
                   if(Levelcounter <= 2){
                     correctrotation = "leer";
-                    document.getElementById("spinningImage").src="Test"+Levelcounter+".png";
+                    document.getElementById("spinningImage").src="Captcha"+Levelcounter+".png";
                     // add new text to Instruction after correct answer
                     document.getElementById("instructiontext").textContent="Orient the Image correctly "+Levelcounter+"/3"
                     //set answer state to correct
@@ -191,7 +194,7 @@
                   // when correct, reset answer, iterate to next image, at the moment max 3 levels, can be changed and more Images added. keep naming scheme.
                   if(Levelcounter <= 2){
                     correctrotation = "leer";
-                    document.getElementById("spinningImage").src="Test"+Levelcounter+".png";
+                    document.getElementById("spinningImage").src="Captcha"+Levelcounter+".png";
                     // add new text to Instruction after correct answer
                     document.getElementById("instructiontext").textContent="Orient the Image correctly "+Levelcounter+"/3"
                     //set answer state to correct
