@@ -49,8 +49,9 @@
     }
     /*Define Variables for difficulty*/
     :root {
-      --animationspeed: 3s;
-      --targetdegree: 20;
+      --animationspeed: 1s; /* How long the animation takes to complete one full rotation */
+      --targetdegree: 20; /* How many degrees off you can be to be considered correct */
+      --increaseby: 1.25; /* How much the animation speed is increased by each level */
     }
     
     /* Define the spinning animation */
@@ -108,6 +109,8 @@
         var targetlow = 0;
         var targethigh = 0;
         var wascorrect = false;
+        var animationspeed = 0;
+        var increaseby = 0;
         //Start spinning immediatly
         spinningImage.classList.add('spin-active');
 
@@ -122,8 +125,10 @@
             // Update target values, as they can change
             targethigh = 180 - targetdegree;
             targetlow = targetdegree;
-            //update mocking Target
-            mockdegree = targetdegree + 20;
+            //update current animationspeed
+            animationspeed = parseFloat(getComputedStyle(root).getPropertyValue('--animationspeed'));
+            //update increaseby, as it can change
+            increaseby = parseFloat(getComputedStyle(root).getPropertyValue('--increaseby'));
             // Check if the image is currently spinning, if yes do calculations
             if (spinningImage.classList.contains('spin-active')) {
                 // If it's spinning, stop it and capture its current orientation
@@ -167,6 +172,9 @@
                     spinningImage.classList.add('spin-active');
                     // Update button text
                     spinButton.textContent = 'Stop image';
+                    //increase difficulty by shortening animationtime
+                    animationspeed = animationspeed / increaseby;
+                    root.style.setProperty('--animationspeed', animationspeed + 's');
                   }
                   else{
                     //set answer state to correct
@@ -192,6 +200,9 @@
                     spinningImage.classList.add('spin-active');
                     // Update button text
                     spinButton.textContent = 'Stop image';
+                    //increase difficulty by shortening animationtime
+                    animationspeed = animationspeed / increaseby;
+                    root.style.setProperty('--animationspeed', animationspeed + 's');
                   }
                   else{
                     //set answer state to correct
