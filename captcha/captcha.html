@@ -62,6 +62,7 @@
         /* Apply the animation when the 'spin-active' class is present */
         /* You can set some difficulty by changing the spin acceleration */
         .spin-active {
+            /* linear( STARTPOINT, NEXTSTEP Percent-in-animation, LASTSTEP )*/
             animation: spin 1s linear(0, 0.25 33%, 0.5 50%, 0.75 83%, 1) infinite; /* 1 seconds per spin, uneven speed faster on important bits, infinite loop */
         }
 
@@ -123,6 +124,15 @@
                 var b = values[1]; // sin(x)
                 var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
                 //angle gets degree value from 0 to 180 on the right side and -180 to 0 on the left
+
+                //if no side was picked until now, the chosen position will be saved and is the wrong Answer. Skipped if a side was already picked
+                if(angle <= 90 && angle >= -90 && correctrotation == "leer"){
+                  correctrotation = "bottom";
+                }
+                else if(correctrotation == "leer"){
+                  correctrotation = "top";
+                }
+
                 //check if the now correct answer get chosen. Skips if this is the first click. Narrower angles increase difficulty.
                 if((angle <= 20 && angle >= 0 && correctrotation == "top") || (angle <= 0 && angle >= -20 && correctrotation == "top")){
                   Levelcounter += 1;
@@ -150,13 +160,7 @@
                     captchaSuccess();
                   }
                 }
-                //if no side was picked until now, the chosen position will be saved and is the wrong Answer. Skipped if a side was already picked
-                if(angle <= 90 && angle >= -90 && correctrotation == "leer"){
-                  correctrotation = "bottom";
-                }
-                else if(correctrotation == "leer"){
-                  correctrotation = "top";
-                }
+                
 
                 // Update button text
                 spinButton.textContent = 'Try again';
