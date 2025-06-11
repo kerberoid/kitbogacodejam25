@@ -2,7 +2,8 @@
 make a "spin the picture to correct orientation" captcha with ambiguos Images. 
 Makes the First orientation always the wrong choice.
 speeds up at both possible upright orientations.
-Art is and will be done by me.
+Have easy to use difficulty settings.
+Art is done by me.
 
 reachable under
 https://kerberoid.github.io/kitbogacodejam25/
@@ -15,7 +16,7 @@ todo:
 - [x] multiple stages to complete the captcha
 - [x] make more difficult through change in speed and direction in the stages
 - [x] solve whythe correct orientation is not wrong on the first choice past lvl1
-- [x] 'insult' the captcha solver when wrong choice
+- [x] 'mock' the captcha solver when wrong choice
 
 
 # OG codejam rules
