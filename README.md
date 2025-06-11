@@ -1,5 +1,5 @@
 # My Ideas
-make a "spin the picture to correct orientation" ambiguos Images. 
+make a "spin the picture to correct orientation" captcha with ambiguos Images. 
 Makes the First orientation always the wrong choice.
 speeds up at both possible upright orientations.
 Art is and will be done by me.
